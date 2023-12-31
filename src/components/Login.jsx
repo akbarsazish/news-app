@@ -9,29 +9,24 @@ const Login = () => {
     const [errors, setErrors] = useState(['']);
     const navigate = useNavigate();
    
-
     const handleLoginForm = async(event) => {
       event.preventDefault();
       
-   
-
       try {
-        await axios.post('http://192.168.10.26:8080/api1/login', {email, password}).then(response => {    
-            console.log("response =", response);
-            localStorage.setItem('token', response.data.token);
-
-            setEmail('');
-            setPassword('');
-            
+        await axios
+          .post('http://127.0.0.1:8000/api/login', { email, password })
+          .then((response) => {
+            console.log('response =', response)
+            localStorage.setItem('token', response.data.token)
+            setEmail('')
+            setPassword('')
             if (response.data.token) {
-               navigate('/');
-            }else{
-              navigate('/login');
+              navigate('/')
+            } else {
+              navigate('/login')
             }
-        });
-        
-
-      } catch (e) {
+          })
+      }catch (e) {
         if (e.response.status === 422) {
           setErrors(e.response.data.errors);
         }

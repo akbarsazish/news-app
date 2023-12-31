@@ -18,7 +18,7 @@ const Register = () => {
     const handleRegisterForm = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('http://192.168.10.26:8080/api1/register',{name, email, password, confirm_password, gender,});
+            await axios.post('http://127.0.0.1:8000/api/register',{name, email, password, confirm_password, gender,});
             setName('');
             setEmail('');
             setPassword('');
