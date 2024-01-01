@@ -3,47 +3,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Login = () => {
-<<<<<<< HEAD
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState(['']);
-    const navigate = useNavigate();
-   
-    const handleLoginForm = async(event) => {
-      event.preventDefault();
-      
-      try {
-        await axios
-          .post('http://127.0.0.1:8000/api/login', { email, password })
-          .then((response) => {
-            console.log('response =', response)
-            localStorage.setItem('token', response.data.token)
-            setEmail('')
-            setPassword('')
-            if (response.data.token) {
-              navigate('/')
-            } else {
-              navigate('/login')
-            }
-          })
-      }catch (e) {
-        if (e.response.status === 422) {
-          setErrors(e.response.data.errors);
-        }
-=======
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([''])
   const navigate = useNavigate()
 
+ console.log("to check the token", localStorage.getItem('token'))
   const handleLoginForm = async (event) => {
     event.preventDefault()
-
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     try {
       await axios
-        .post('http://127.0.0.1:8000/api/login', { email, password })
+        .post('http://192.168.10.21:8000/api/login', { email, password }, {
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type':'application/json'
+          },
+        })
         .then((response) => {
-          console.log('response =', response)
           localStorage.setItem('token', response.data.token)
 
           setEmail('')
@@ -58,7 +35,6 @@ const Login = () => {
     } catch (e) {
       if (e.response.status === 422) {
         setErrors(e.response.data.errors)
->>>>>>> 6fc192f2d66f2062446d90e557808fc3d5779b4b
       }
     }
   }

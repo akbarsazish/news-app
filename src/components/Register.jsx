@@ -16,10 +16,11 @@ const Register = () => {
   }
 
   const handleRegisterForm = async (event) => {
+    alert("it works")
     event.preventDefault()
     try {
       await axios
-        .post('http://127.0.0.1:8000/api/register', {
+        .post('http://192.168.10.21:8000/api/register', {
           name,
           email,
           password,
