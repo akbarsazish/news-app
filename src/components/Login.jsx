@@ -3,34 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Login = () => {
-<<<<<<< HEAD
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState(['']);
-    const navigate = useNavigate();
-   
-    const handleLoginForm = async(event) => {
-      event.preventDefault();
-      
-      try {
-        await axios
-          .post('http://127.0.0.1:8000/api/login', { email, password })
-          .then((response) => {
-            console.log('response =', response)
-            localStorage.setItem('token', response.data.token)
-            setEmail('')
-            setPassword('')
-            if (response.data.token) {
-              navigate('/')
-            } else {
-              navigate('/login')
-            }
-          })
-      }catch (e) {
-        if (e.response.status === 422) {
-          setErrors(e.response.data.errors);
-        }
-=======
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([''])
@@ -58,7 +30,6 @@ const Login = () => {
     } catch (e) {
       if (e.response.status === 422) {
         setErrors(e.response.data.errors)
->>>>>>> 6fc192f2d66f2062446d90e557808fc3d5779b4b
       }
     }
   }
