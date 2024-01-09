@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([''])
   const navigate = useNavigate()
-
- console.log("to check the token", localStorage.getItem('token'))
+  const { setIsLogedIn } = useAuth()
   const handleLoginForm = async (event) => {
     event.preventDefault()
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute('content')
     try {
       await axios
-        .post('http://192.168.10.21:8000/api/login', { email, password }, {
-          headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type':'application/json'
-          },
-        })
+        .post(
+          'http://127.0.0.1:8000/api/login',
+          { email, password },
+          {
+            headers: {
+              'X-CSRF-TOKEN': csrfToken,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
         .then((response) => {
           localStorage.setItem('token', response.data.token)
-
+          setIsLogedIn(true)
           setEmail('')
           setPassword('')
 

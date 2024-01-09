@@ -7,7 +7,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['src/**/*'],
   },
-  server: {
-    host: '192.168.10.21',
-  },
 })

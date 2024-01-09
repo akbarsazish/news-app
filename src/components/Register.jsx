@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import { useAuth } from '../contexts/AuthContext'
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirm_password, setConfirmationPassword] = useState('')
   const [gender, setGender] = useState('')
-
+  const { isLogedIn, setIsLogedIn } = useAuth()
   const navigate = useNavigate()
 
   const handleGenderChange = (event) => {
@@ -16,7 +16,6 @@ const Register = () => {
   }
 
   const handleRegisterForm = async (event) => {
-    alert("it works")
     event.preventDefault()
     try {
       await axios
@@ -38,6 +37,7 @@ const Register = () => {
           setGender('')
 
           if (response.data.token) {
+            setIsLogedIn(true)
             navigate('/')
           } else {
             navigate('/login')
