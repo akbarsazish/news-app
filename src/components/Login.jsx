@@ -8,14 +8,19 @@ const Login = () => {
   const [errors, setErrors] = useState([''])
   const navigate = useNavigate()
 
+ console.log("to check the token", localStorage.getItem('token'))
   const handleLoginForm = async (event) => {
     event.preventDefault()
-
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     try {
       await axios
-        .post('http://127.0.0.1:8000/api/login', { email, password })
+        .post('http://192.168.10.21:8000/api/login', { email, password }, {
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type':'application/json'
+          },
+        })
         .then((response) => {
-          console.log('response =', response)
           localStorage.setItem('token', response.data.token)
 
           setEmail('')
