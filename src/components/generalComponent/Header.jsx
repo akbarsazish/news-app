@@ -6,27 +6,11 @@ import { useAuth } from '../../contexts/AuthContext'
 const Header = () => {
   const usenave = useNavigate()
   const { isLogedIn, setIsLogedIn, setAuthUser, authUser } = useAuth()
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
-  //   if (token) {
-  //     setIsLogedIn(true)
-  //     // Set authUser if needed
-  //     usenave('/')
-  //     setAuthUser({
-  //       Name: 'Jawad online',
-  //     })
-  //   } else {
-  //     setIsLogedIn(false)
-  //     setAuthUser(null)
-  //   }
-  // }, [])
+
   console.log('is loged in', isLogedIn)
   const Logout = () => {
-    console.log('you clicked logout')
-
     localStorage.removeItem('token')
     setIsLogedIn(false)
-    // Set authUser if needed
     usenave('/login')
   }
 
@@ -72,29 +56,25 @@ const Header = () => {
             </div>
             <div className='hidden sm:ml-6 sm:block'>
               <div className='flex space-x-4'>
-                <Link
-                  to='/'
+                <Link to='/'
                   className='bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium'
                   aria-current='page'
                 >
                   Dashboard
                 </Link>
-                <Link
-                  to='/home'
+                <Link to='/home'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'
                 >
                   Home
                 </Link>
                 {!isLogedIn ? (
-                  <Link
-                    to='/login'
+                  <Link to='/login'
                     className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'
                   >
                     Login
                   </Link>
                 ) : (
-                  <Link
-                    onClick={Logout}
+                  <Link onClick={Logout}
                     className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'
                   >
                     Logout
