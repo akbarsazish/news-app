@@ -1,11 +1,10 @@
-import {Dashboard} from "./Dashboard";
+import { NewsList } from './NewsList'
 const Home = () => {
-
-    return (
-        <div>
-           <Dashboard />
-        </div>
-    )   
+  return (
+    <div>
+      <NewsList />
+    </div>
+  )
 }
 
-export default Home;
+export default Home
